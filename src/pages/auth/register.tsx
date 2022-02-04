@@ -1,7 +1,7 @@
 import { getCsrfToken, signIn } from 'next-auth/react'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import ErrorBanner from '../../components/notifications/error-banner'
+import ErrorBanner from '@/components/notifications/error-banner'
 import Link from 'next/link'
 
 export async function getServerSideProps(context) {
@@ -13,7 +13,7 @@ export async function getServerSideProps(context) {
 }
 
 export default function Register({ csrfToken }) {
-  const [error, setError] = useState()
+  const [error, setError] = useState("")
   const router = useRouter()
 
   const handleSubmit = async event => {

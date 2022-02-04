@@ -1,4 +1,4 @@
-import Authenticated from '../../components/layouts/authenticated'
+import Authenticated from "@/layouts/authenticated"
 
 export default function Dashboard() {
   return (

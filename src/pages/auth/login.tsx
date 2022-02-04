@@ -1,8 +1,8 @@
 import { getCsrfToken, signIn, useSession, getSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import ErrorBanner from '../../components/notifications/error-banner'
-import SuccessBanner from '../../components/notifications/success-banner'
+import ErrorBanner from '@/components/notifications/error-banner'
+import SuccessBanner from '@/components/notifications/success-banner'
 import Link from 'next/link'
 
 export async function getServerSideProps(context) {
@@ -16,9 +16,9 @@ export async function getServerSideProps(context) {
 
 export default function Login({ csrfToken }) {
 	const { data: session, status } = useSession()
-  const [error, setError] = useState()
+  const [error, setError] = useState("")
 	const [callback, setCallback] = useState(`${process.env.NEXT_PUBLIC_URL}/dashboard`)
-	const [confirmation, setConfirmation] = useState()
+	const [confirmation, setConfirmation] = useState("")
   const router = useRouter()
   const { query } = useRouter()
 
@@ -59,7 +59,7 @@ export default function Login({ csrfToken }) {
       }
     }
 		if (query && query?.callbackUrl) {
-			setCallback(query.callbackUrl)
+			setCallback(String(query.callbackUrl))
 		}
 		if (query && query?.confirmation) {
 			switch (query.confirmation) {
