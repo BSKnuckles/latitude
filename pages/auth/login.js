@@ -20,7 +20,7 @@ export default function Login({ csrfToken }) {
 		event.preventDefault()
 		const { error, status } = await signIn('email', {
       redirect: false,
-      callbackUrl: 'http://localhost:3000/dashboard',
+      callbackUrl: `${process.env.NEXTAUTH_URL}/dashboard`,
       email: event.target[0].value,
     })
 		if (error) setError(error)
@@ -29,10 +29,10 @@ export default function Login({ csrfToken }) {
 	const handleCredentials = async event => {
     event.preventDefault()
     const { error, status } = await signIn('credentials', {
-			redirect: false,
-      callbackUrl: 'http://localhost:3000/dashboard',
+      redirect: false,
+      callbackUrl: `${process.env.NEXTAUTH_URL}/dashboard`,
       email: event.target[0].value,
-      password: event.target[1].value,
+      password: event.target[1].value
     })
     if (error) setError(error)
     else router.push('/dashboard')
