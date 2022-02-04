@@ -27,10 +27,10 @@ export default function Confirmation() {
                   your account.
                 </p>
                 <div className='mt-6'>
-                  <Link href='/' className='text-base font-medium text-indigo-600 hover:text-indigo-500'>
-                    <>
+                  <Link href='/'>
+                    <a className='text-base font-medium text-indigo-600 hover:text-indigo-500'>
                       Go back home<span aria-hidden='true'> &rarr;</span>
-                    </>
+                    </a>
                   </Link>
                 </div>
               </div>
