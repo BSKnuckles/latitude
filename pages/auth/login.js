@@ -68,7 +68,7 @@ export default function Login({ csrfToken }) {
 					break
 			}
 		}
-  }, [query])
+  }, [query, router, session])
 
   const handleMagicLink = async event => {
     event.preventDefault()

@@ -8,14 +8,16 @@ export default function Confirmation() {
           <main className='flex-grow flex flex-col bg-white'>
             <div className='flex-grow mx-auto max-w-7xl w-full flex flex-col px-4 sm:px-6 lg:px-8'>
               <div className='flex-shrink-0 pt-10 sm:pt-16'>
-                <a href='/' className='inline-flex'>
-                  <span className='sr-only'>Workflow</span>
-                  <img
-                    className='h-12 w-auto'
-                    src='https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600'
-                    alt=''
-                  />
-                </a>
+                <Link href='/'>
+                  <a className='inline-flex'>
+                    <span className='sr-only'>Workflow</span>
+                    <img
+                      className='h-12 w-auto'
+                      src='https://tailwindui.com/img/logos/workflow-mark.svg?color=indigo&shade=600'
+                      alt=''
+                    />
+                  </a>
+                </Link>
               </div>
               <div className='flex-shrink-0 my-auto py-16 sm:py-32 pr-4 sm:pr-6 lg:pr-8 lg:w-1/2'>
                 <p className='text-sm font-semibold text-indigo-600 uppercase tracking-wide'>Confirmation</p>
