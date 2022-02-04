@@ -11,34 +11,43 @@ export default NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
     EmailProvider({
-			name: 'Email Magic Link',
-      server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: Number(process.env.EMAIL_SERVER_PORT),
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD
+        }
+      },
+      from: process.env.EMAIL_SERVER_FROM
     }),
     CredentialsProvider({
       name: 'Credentials',
-			credentials: {
-				email: { label: 'Email Address', type: 'text', placeholder: 'youare@thebomb.com' },
-				password: { label: 'Password', type: 'password' }
-			},
+      credentials: {
+        email: { label: 'Email Address', type: 'text', placeholder: 'youare@thebomb.com' },
+        password: { label: 'Password', type: 'password' }
+      },
       async authorize(credentials) {
+        console.log(credentials)
         try {
           const user = await prisma.user.findUnique({
             where: { email: credentials.email }
           })
 
           if (!user) throw new Error('No user found')
-					if (!user.password) throw new Error('You previously signed in with magic links. Please sign in with a magic link then set a password.')
-					const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
-					if (!isPasswordValid) throw new Error('Password is not valid')
+          if (!user.password)
+            throw new Error(
+              'You previously signed in with magic links. Please sign in with a magic link then set a password.'
+            )
+          const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
+          if (!isPasswordValid) throw new Error('Password is not valid')
 
-					return {
-						email: user.email,
-						id: user.id,
-						name: user.name,
-						isAdmin: user.isAdmin
-					}
-
+          return {
+            email: user.email,
+            id: user.id,
+            name: user.name,
+            isAdmin: user.isAdmin
+          }
         } catch (error) {
           throw new Error(error)
         }
@@ -49,7 +58,7 @@ export default NextAuth({
   session: {
     strategy: 'jwt',
     // Seconds - How long until an idle session expires and is no longer valid.
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 30 * 24 * 60 * 60 // 30 days
 
     // Seconds - Throttle how frequently to write to database to extend a session.
     // Use it to limit write operations. Set to 0 to always update the database.
@@ -63,9 +72,9 @@ export default NextAuth({
     // decode: async ({ secret, token, maxAge }) => {},
   },
   pages: {
-    signIn: '/auth/login',  // Displays signin buttons
+    signIn: '/auth/login', // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
-    error: '/auth/login', // Error code passed in query string as ?error=
+    error: '/auth/login' // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
     // newUser: null // If set, new users will be directed here on first sign in
   },
