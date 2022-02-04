@@ -10,7 +10,7 @@ const navigation = [
   { name: 'Company', href: '#' }
 ]
 
-export default function Example() {
+export default function Home() {
   return (
     <div className='bg-gray-50'>
       <div className='relative overflow-hidden'>
@@ -86,10 +86,17 @@ export default function Example() {
                     </a>
                   ))}
                 </div>
-                <div className='hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0'>
+                <div className='hidden md:absolute md:flex md:items-center md:justify-end md:inset-y-0 md:right-0 md:space-x-4'>
+                  <span className='inline-flex rounded-md shadow'>
+                    <Link href='/auth/register'>
+                      <a className='inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500'>
+                        Sign Up
+                      </a>
+                    </Link>
+                  </span>
                   <span className='inline-flex rounded-md shadow'>
                     <Link href='/auth/login'>
-                      <a className='inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white hover:text-indigo-500'>
+                      <a className='inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500'>
                         Log in
                       </a>
                     </Link>

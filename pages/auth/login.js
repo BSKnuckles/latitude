@@ -1,71 +1,93 @@
-import { getCsrfToken, signIn } from 'next-auth/react'
+import { getCsrfToken, signIn, useSession, getSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import ErrorBanner from '../../components/error-banner'
+import ErrorBanner from '../../components/notifications/error-banner'
+import SuccessBanner from '../../components/notifications/success-banner'
 import Link from 'next/link'
 
 export async function getServerSideProps(context) {
   return {
     props: {
-      csrfToken: await getCsrfToken(context)
+      csrfToken: await getCsrfToken(context),
+      session: await getSession(context)
     }
   }
 }
 
 export default function Login({ csrfToken }) {
-	const [error, setError] = useState()
-	const router = useRouter()
-	const { query } = useRouter()
+	const { data: session, status } = useSession()
+  const [error, setError] = useState()
+	const [callback, setCallback] = useState(`${process.env.NEXT_PUBLIC_URL}/dashboard`)
+	const [confirmation, setConfirmation] = useState()
+  const router = useRouter()
+  const { query } = useRouter()
 
-	useEffect(() => {
-		if (query.error) {
-			switch (query.error) {
-				case "Verification":
-					setError('The verification token has expired. Please sign in again.')
+  useEffect(() => {
+		if (session) router.push('/dashboard')
+    if (query && query?.error) {
+      switch (query.error) {
+        case 'Verification':
+          setError('The verification token has expired. Please sign in again.')
+          break
+        case 'Configuration':
+          setError('There is a problem with the server configuration. Please contact support for assistance.')
+          break
+        case 'AccessDenied':
+          setError('You are not authorized to access Latitude. Please contact support if you believe this is an error.')
+          break
+        case 'EmailCreateAccount':
+          setError('Failed to create new account. Please contact support for assistance.')
+          break
+        case 'EmailSignin':
+          setError('Failed to send your passwordless link. Please check your email and try again.')
+          break
+        case 'CredentialsSignin':
+          setError('Your credentials did not match our records.')
+          break
+        case 'SessionRequired':
+          setError('You must be signing in to view this page.')
+          break
+				case 'NoUserFound':
+					setError('No user found with these credentials.')
 					break
-				case "Configuration":
-					setError('There is a problem with the server configuration. Please contact support for assistance.')
+				case 'Passwordless':
+					setError('You previously signed in with magic links. Please sign in with a magic link then set a password.')
 					break
-				case "AccessDenied":
-					setError('You are not authorized to access Latitude. Please contact support if you believe this is an error.')
-					break
-				case "EmailCreateAccount":
-					setError('Failed to create new account. Please contact support for assistance.')
-					break
-				case "EmailSignin":
-					setError('Failed to send your passwordless link. Please check your email and try again.')
-					break
-				case "CredentialsSignin":
-					setError('Your credentials did not match our records.')
-					break
-				case "SessionRequired":
-					setError('You must be signing in to view this page.')
-					break
-				default:
-					setError('An unknown error occurred. Please sign in again.')
+        default:
+          setError('An unknown error occurred. Please sign in again.')
+          break
+      }
+    }
+		if (query && query?.callbackUrl) {
+			setCallback(query.callbackUrl)
+		}
+		if (query && query?.confirmation) {
+			switch (query.confirmation) {
+				case "SuccessfulAccountCreation":
+					setConfirmation('Successfully created your account! Please sign in.')
 					break
 			}
 		}
-	}, [query])
+  }, [query])
 
-	const handleMagicLink = async (event) => {
-		event.preventDefault()
-		const { error } = await signIn('email', {
-      redirect: false,
-      callbackUrl: `${process.env.NEXTAUTH_URL}/dashboard`,
-      email: event.target[0].value,
-    })
-		if (!error) router.push('/auth/confirmation')
-	}
-	const handleCredentials = async event => {
+  const handleMagicLink = async event => {
     event.preventDefault()
-    const { error } = await signIn('credentials', {
-      redirect: false,
-      callbackUrl: `${process.env.NEXTAUTH_URL}/dashboard`,
+    const response = await signIn('email', {
+      email: event.target[0].value,
+      csrfToken: csrfToken,
+      callbackUrl: callback,
+    })
+		if (response?.error) setError(error)
+  }
+  const handleCredentials = async event => {
+    event.preventDefault()
+    const response = await signIn('credentials', {
+      csrfToken: csrfToken,
+      callbackUrl: callback,
       email: event.target[0].value,
       password: event.target[1].value
     })
-    if (!error) router.push('/dashboard')
+		// if (!response?.error) router.push(callback)
   }
 
   return (
@@ -74,12 +96,16 @@ export default function Login({ csrfToken }) {
         <div className='flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24'>
           <div className='mx-auto w-full max-w-sm lg:w-96'>
             <div className='mb-2'>
-              <img
-                className='h-12 w-auto mx-auto'
-                src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
-                alt='Workflow'
-              />
-              <h2 className='mt-6 text-3xl font-extrabold text-gray-900'>Sign in to your account</h2>
+              <Link href='/'>
+                <a>
+                  <img
+                    className='h-12 w-auto mx-auto'
+                    src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
+                    alt='Workflow'
+                  />
+                </a>
+              </Link>
+              <h2 className='mt-6 text-3xl font-extrabold text-center text-gray-900'>Sign in to your account</h2>
             </div>
 
             {error && (
@@ -88,13 +114,19 @@ export default function Login({ csrfToken }) {
               </div>
             )}
 
+						{confirmation && (
+							<div className='mt-6'>
+								<SuccessBanner title='Success' message={confirmation} />
+							</div>
+						)}
+
             <div className='mt-6'>
               <div>
                 <div>
                   <form onSubmit={handleMagicLink} id='magic-link-form' className='space-y-6'>
                     <div>
                       <label htmlFor='email-link' className='block text-sm font-medium text-gray-700'>
-                        Email address
+                        Email Address
                       </label>
                       <div className='mt-1'>
                         <input
@@ -112,7 +144,7 @@ export default function Login({ csrfToken }) {
                       <button
                         type='submit'
                         className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
-                        Send Magic Link to Your Inbox
+                        Send Passwordless Login Link to Your Inbox
                       </button>
                     </div>
                   </form>
@@ -171,22 +203,12 @@ export default function Login({ csrfToken }) {
                   </div>
 
                   <div className='flex items-center justify-center'>
-                    {/* <div className='flex items-center'>
-                      <input
-                        id='remember-me'
-                        name='remember-me'
-                        type='checkbox'
-                        className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
-                      />
-                      <label htmlFor='remember-me' className='ml-2 block text-sm text-gray-900'>
-                        Remember me
-                      </label>
-                    </div> */}
-
                     <div className='text-sm'>
-                      <a href='#' className='font-medium text-indigo-600 hover:text-indigo-500'>
-                        Forgot your password?
-                      </a>
+                      <Link href='/auth/register'>
+                        <a className='font-medium text-indigo-600 hover:text-indigo-500 hover:underline'>
+                          No Account? Sign Up Here
+                        </a>
+                      </Link>
                     </div>
                   </div>
                 </form>

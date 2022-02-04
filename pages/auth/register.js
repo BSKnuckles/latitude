@@ -1,7 +1,7 @@
 import { getCsrfToken, signIn } from 'next-auth/react'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import ErrorBanner from '../../components/error-banner'
+import ErrorBanner from '../../components/notifications/error-banner'
 import Link from 'next/link'
 
 export async function getServerSideProps(context) {
@@ -18,29 +18,28 @@ export default function Register({ csrfToken }) {
 
   const handleSubmit = async event => {
     event.preventDefault()
-		const name = event.target[0].value
-		const email = event.target[1].value
-		const password = event.target[2].value
-		const confirm = event.target[3].value
+    const name = event.target[0].value
+    const email = event.target[1].value
+    const password = event.target[2].value
+    const confirm = event.target[3].value
 
-		if (password === confirm) {
-			const { error, message } = await fetch('/api/auth/register', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					name: name,
-					email: email,
-					password: password
-				})
-			}).then(res => res.json())
-			if (error) setError(error)
-			if (message === 'Successfully created user account!') router.push('/auth/login')
-		}
-		else {
-			setError('Passwords must match!')
-		}
+    if (password === confirm) {
+      const { error, message } = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          password: password
+        })
+      }).then(res => res.json())
+      if (error) setError(error)
+      if (message === 'Successfully created user account!') router.push('/auth/login?confirmation=SuccessfulAccountCreation')
+    } else {
+      setError('Passwords must match!')
+    }
   }
 
   return (
@@ -48,13 +47,17 @@ export default function Register({ csrfToken }) {
       <div className='min-h-full flex'>
         <div className='flex-1 flex flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24'>
           <div className='mx-auto w-full max-w-sm lg:w-96'>
-            <div>
-              <img
-                className='h-12 w-auto mx-auto'
-                src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
-                alt='Workflow'
-              />
-              <h2 className='mt-6 text-3xl font-extrabold text-gray-900'>Create Your Account</h2>
+            <div className='mb-2'>
+              <Link href='/'>
+                <a>
+                  <img
+                    className='h-12 w-auto mx-auto'
+                    src='https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg'
+                    alt='Workflow'
+                  />
+                </a>
+              </Link>
+              <h2 className='mt-6 text-3xl font-extrabold text-center text-gray-900'>Create Your Account</h2>
             </div>
 
             {error && (
@@ -97,40 +100,39 @@ export default function Register({ csrfToken }) {
                   </div>
                 </div>
 
-								<div className='space-y-2'>
-									<div className='space-y-1'>
-										<label htmlFor='password' className='block text-sm font-medium text-gray-700'>
-											Password
-										</label>
-										<div className='mt-1'>
-											<input
-												id='password'
-												name='password'
-												type='password'
-												autoComplete='current-password'
-												required
-												className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-											/>
-										</div>
-									</div>
+                <div className='space-y-2'>
+                  <div className='space-y-1'>
+                    <label htmlFor='password' className='block text-sm font-medium text-gray-700'>
+                      Password
+                    </label>
+                    <div className='mt-1'>
+                      <input
+                        id='password'
+                        name='password'
+                        type='password'
+                        autoComplete='current-password'
+                        required
+                        className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+                      />
+                    </div>
+                  </div>
 
-									<div className='space-y-1'>
-										<label htmlFor='confirm-password' className='block text-sm font-medium text-gray-700'>
-											Confirm Password
-										</label>
-										<div className='mt-1'>
-											<input
-												id='confirm-password'
-												name='confirm-password'
-												type='password'
-												autoComplete='current-password'
-												placeholder='Confirm password'
-												required
-												className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
-											/>
-										</div>
-									</div>
-								</div>
+                  <div className='space-y-1'>
+                    <label htmlFor='confirm-password' className='block text-sm font-medium text-gray-700'>
+                      Confirm Password
+                    </label>
+                    <div className='mt-1'>
+                      <input
+                        id='confirm-password'
+                        name='confirm-password'
+                        type='password'
+                        autoComplete='current-password'
+                        required
+                        className='appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm'
+                      />
+                    </div>
+                  </div>
+                </div>
 
                 <div>
                   <button
@@ -138,6 +140,16 @@ export default function Register({ csrfToken }) {
                     className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>
                     Sign Up
                   </button>
+                </div>
+
+                <div className='flex items-center justify-center'>
+                  <div className='text-sm'>
+                    <Link href='/auth/login'>
+                      <a className='font-medium text-indigo-600 hover:text-indigo-500 hover:underline'>
+                        Already Have An Account? Log In Here!
+                      </a>
+                    </Link>
+                  </div>
                 </div>
               </form>
             </div>

@@ -1,6 +1,6 @@
-import NextAuth from "next-auth"
-import EmailProvider from "next-auth/providers/email"
-import CredentialsProvider from "next-auth/providers/credentials"
+import NextAuth from 'next-auth'
+import EmailProvider from 'next-auth/providers/email'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
 import bcrypt from 'bcrypt'
@@ -33,13 +33,10 @@ export default NextAuth({
             where: { email: credentials.email }
           })
 
-          if (!user) throw new Error('No user found')
-          if (!user.password)
-            throw new Error(
-              'You previously signed in with magic links. Please sign in with a magic link then set a password.'
-            )
+          if (!user) throw new Error('NoUserFound')
+          if (!user.password) throw new Error('Passwordless')
           const isPasswordValid = await bcrypt.compare(credentials.password, user.password)
-          if (!isPasswordValid) throw new Error('Password is not valid')
+          if (!isPasswordValid) throw new Error()
 
           return {
             email: user.email,
@@ -48,7 +45,7 @@ export default NextAuth({
             isAdmin: user.isAdmin
           }
         } catch (error) {
-          throw new Error(error)
+          throw new Error(error.message)
         }
       }
     })
@@ -73,9 +70,9 @@ export default NextAuth({
   pages: {
     signIn: '/auth/login', // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
-    error: '/auth/login' // Error code passed in query string as ?error=
-    // verifyRequest: '/auth/verify-request', // Used for check email page
-    // newUser: null // If set, new users will be directed here on first sign in
+    error: '/auth/login', // Error code passed in query string as ?error=
+    verifyRequest: '/auth/confirmation', // Used for check email page
+    newUser: '/dashboard/profile' // If set, new users will be directed here on first sign in
   },
   // Callbacks are asynchronous functions you can use to control what happens
   // when an action is performed.
