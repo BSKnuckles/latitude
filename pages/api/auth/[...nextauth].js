@@ -1,5 +1,6 @@
 import NextAuth from "next-auth"
 import EmailProvider from "next-auth/providers/email"
+import GoogleProvider from 'next-auth/providers/google'
 import CredentialsProvider from "next-auth/providers/credentials"
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import { PrismaClient } from '@prisma/client'
@@ -12,15 +13,19 @@ export default NextAuth({
   providers: [
     EmailProvider({
       server: {
-        host: process.env.EMAIL_SERVER_HOST,
-        port: Number(process.env.EMAIL_SERVER_PORT),
+        host: process.env.SMTP_HOST,
+        port: Number(process.env.SMTP_PORT),
         auth: {
-          user: process.env.EMAIL_SERVER_USER,
-          pass: process.env.EMAIL_SERVER_PASSWORD
+          user: process.env.SMTP_USER,
+          pass: process.env.SMTP_PASSWORD
         }
       },
-      from: process.env.EMAIL_SERVER_FROM
+      from: process.env.SMTP_FROM
     }),
+		GoogleProvider({
+    	clientId: process.env.GOOGLE_ID,
+    	clientSecret: process.env.GOOGLE_SECRET
+  	}),
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
@@ -28,7 +33,6 @@ export default NextAuth({
         password: { label: 'Password', type: 'password' }
       },
       async authorize(credentials) {
-        console.log(credentials)
         try {
           const user = await prisma.user.findUnique({
             where: { email: credentials.email }
