@@ -6,7 +6,10 @@ import './globals.css'
 export default function App ({ Component, pageProps }) {
   return (
     <SessionProvider
-      session={pageProps.session} >
+      session={pageProps.session}
+			refetchOnWindowFocus={true}
+			refetchInterval={5 * 60}
+		>
       <Component {...pageProps} />
     </SessionProvider>
   )
