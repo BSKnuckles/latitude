@@ -7,6 +7,16 @@ import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient()
 
+type Session = {
+	expires: string,
+	user: {
+		id: string,
+		name: string,
+		email: string,
+		image: string
+	}
+};
+
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
@@ -39,10 +49,11 @@ export default NextAuth({
           if (!isPasswordValid) throw new Error()
 
           return {
-            email: user.email,
             id: user.id,
             name: user.name,
-            isAdmin: user.isAdmin
+            email: user.email,
+						emailVerified: user.emailVerified,
+						image: user.image
           }
         } catch (error) {
           throw new Error(error.message)
@@ -78,10 +89,31 @@ export default NextAuth({
   // when an action is performed.
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
+		// async session(session, token) {
+    //         session.accessToken = token.accessToken;
+    //         session.user = token.user;
+    //         return session;
+    //     },
+    //     async jwt(token, user, account, profile, isNewUser) {
+    //         if (user) {
+    //             token.accessToken = user._id;
+    //             token.user = user;
+    //         }
+    //         return token;
+    //     },
     // async signIn({ user, account, profile, email, credentials }) { return true },
     // async redirect({ url, baseUrl }) { return baseUrl },
-    // async session({ session, token, user }) { return session },
-    // async jwt({ token, user, account, profile, isNewUser }) { return token }
+    async session({ session, token, user }) { 
+			session.user = {
+				id: token.sub,
+				name: token.name,
+				email: token.email,
+				image: token.picture
+			}
+			console.log(session)
+			return session
+		},
+    // async jwt({ token, user, account, profile, isNewUser }) {return token}
   },
 
   // Events are useful for logging
