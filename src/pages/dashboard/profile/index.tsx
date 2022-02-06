@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/react'
 import Authenticated from '@/layouts/authenticated'
 import ErrorBanner from '@/components/notifications/error-banner'
 import SuccessBanner from '@/components/notifications/success-banner'
+import PageHeader from '@/layouts/page-header'
 
 export async function getServerSideProps(context) {
 	const session = await getSession(context)
@@ -72,7 +73,8 @@ export default function Profile({ session, user }) {
 	if (!profile) return null
 	else {
 		return (
-			<Authenticated title="User Profile">
+			<Authenticated>
+				<PageHeader title="User Profile" />
 				<form
 					onSubmit={handleSubmit}
 					className="space-y-8 divide-y divide-gray-200"

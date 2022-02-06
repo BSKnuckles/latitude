@@ -14,12 +14,9 @@ import {
 } from '@heroicons/react/outline'
 import { SearchIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
+import { classNames } from '@/lib/utils'
 
-function classNames(...classes) {
-	return classes.filter(Boolean).join(' ')
-}
-
-export default function Layout({ children, title = 'Dashboard' }) {
+export default function Layout({ children }) {
 	const router = useRouter()
 	const [sidebarOpen, setSidebarOpen] = useState(false)
 
@@ -287,11 +284,8 @@ export default function Layout({ children, title = 'Dashboard' }) {
 					</div>
 				</div>
 
-				<main className="flex-1">
+				<main className="flex-1 bg-gray-100">
 					<div className="py-6">
-						<div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
-							<h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
-						</div>
 						<div className="mx-auto max-w-7xl px-4 sm:px-6 md:px-8">
 							{children}
 						</div>
