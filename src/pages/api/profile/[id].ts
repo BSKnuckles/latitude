@@ -4,7 +4,6 @@ import PUT from './put'
 
 const handler = async (req, res) => {
 	const session = await getSession({ req })
-	console.log('Session:', session)
 	const { id } = req.query
 	if (!session) res.status(401).send()
 	else {
