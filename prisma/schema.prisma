@@ -47,10 +47,11 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
-	password			String?
+  password      String?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  clients       Client[]
 
   @@map("users")
 }
@@ -62,4 +63,16 @@ model VerificationToken {
 
   @@unique([identifier, token])
   @@map("verificationtokens")
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  name      String
+  userId    String   @map("user_id")
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("clients")
 }
