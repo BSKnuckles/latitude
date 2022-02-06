@@ -28,7 +28,7 @@ export default NextAuth({
 		// You can still force a JWT session by explicitly defining `"jwt"`.
 		// When using `"database"`, the session cookie will only contain a `sessionToken` value,
 		// which is used to look up the session in the database.
-		strategy: "jwt",
+		strategy: 'jwt',
 
 		// Seconds - How long until an idle session expires and is no longer valid.
 		maxAge: 30 * 24 * 60 * 60, // 30 days
@@ -57,13 +57,13 @@ export default NextAuth({
 	callbacks: {
 		// async signIn({ user, account, profile, email, credentials }) { return true },
 		// async redirect({ url, baseUrl }) { return baseUrl },
-		async session({ session, token, user }) { 
+		async session({ session, token, user }) {
 			session.user = {
 				id: token.sub,
 				name: token.name,
 				email: token.email,
 				emailVerified: token.emailVerified !== null ? true : false,
-				image: token.picture
+				image: token.picture,
 			}
 			return session
 		},

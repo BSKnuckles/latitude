@@ -8,5 +8,5 @@ body {
 } */
 
 #__next {
-  @apply flex flex-col h-screen text-gray-600 leading-normal text-base tracking-normal;
+	@apply flex h-screen flex-col text-base leading-normal tracking-normal text-gray-600;
 }

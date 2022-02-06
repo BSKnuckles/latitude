@@ -4,7 +4,7 @@ const prisma = new PrismaClient()
 const handler = async (req, res, id) => {
 	try {
 		const { name, email, image } = JSON.parse(req.body)
-		const user = await prisma.user.findUnique({ where: { id: id }})
+		const user = await prisma.user.findUnique({ where: { id: id } })
 		let updatedUser
 		if (user.email !== email) {
 			updatedUser = await prisma.user.update({
@@ -15,11 +15,10 @@ const handler = async (req, res, id) => {
 					name: name,
 					email: email,
 					image: image,
-					emailVerified: null
+					emailVerified: null,
 				},
 			})
-		}
-		else {
+		} else {
 			updatedUser = await prisma.user.update({
 				where: {
 					id: id,
@@ -45,7 +44,6 @@ const handler = async (req, res, id) => {
 				emailVerified: updatedUser.emailVerified,
 				image: updatedUser.image,
 			})
-
 	} catch (error) {
 		res.status(500).json({
 			error:
