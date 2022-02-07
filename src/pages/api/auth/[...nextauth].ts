@@ -20,7 +20,6 @@ export default NextAuth({
 			from: process.env.SMTP_FROM,
 		}),
 	],
-	secret: process.env.SECRET,
 	session: {
 		// Choose how you want to save the user session.
 		// The default is `"jwt"`, an encrypted JWT (JWE) in the session cookie.
