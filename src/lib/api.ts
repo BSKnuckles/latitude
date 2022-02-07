@@ -30,8 +30,8 @@ const buildPaginator = (slug, recordCount, total, page, count, orderBy, directio
 	return {
 		prev_url: recordCount > 0 ? page > 1 ? `${process.env.NEXT_PUBLIC_URL}/dashboard/${slug}?page=${Number(page) - 1}&count=${Number(count)}&orderBy=${orderBy}&direction=${direction}` : null : null,
 		next_url: recordCount > 0 ? page < (total / count) ? `${process.env.NEXT_PUBLIC_URL}/dashboard/${slug}?page=${Number(page) + 1}&count=${Number(count)}&orderBy=${orderBy}&direction=${direction}` : null : null,
-		from: recordCount > 0 ? page === 1 ? 1 : ((page - 1) * count) + 1 : null,
-		to: recordCount > 0 ? recordCount === count ? ((page - 1) * count) + count : ((page - 1) * count) + recordCount : null,
+		from: recordCount > 0 ? page === 1 ? 1 : ((page - 1) * count) + 1 : 0,
+		to: recordCount > 0 ? recordCount === count ? ((page - 1) * count) + count : ((page - 1) * count) + recordCount : 0,
 		total: total
 	}
 }
