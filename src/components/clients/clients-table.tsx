@@ -2,36 +2,124 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import Link from 'next/link'
 dayjs.extend(relativeTime)
+import {
+	ArrowSmDownIcon,
+	ArrowSmUpIcon,
+	SwitchVerticalIcon,
+} from '@heroicons/react/solid'
 
-// const relativeTime = require('dayjs/plugin/relativeTime')
-
-export default function ClientsTable({ clients }) {
+export default function ClientsTable({
+	clients,
+	order,
+	direction,
+	perPage,
+	updateSort,
+}) {
+	const sortControls = (
+		label: string,
+		column: string,
+		order: string,
+		direction: string,
+		updateSort
+	) => {
+		if (order === column) {
+			// Sort is set for this column
+			if (direction === 'asc')
+				return (
+					<button
+						onClick={() => updateSort(column, 'desc')}
+						className="flex items-center space-x-1"
+					>
+						<span className="text-xs font-medium uppercase tracking-wider text-gray-500">
+							{label}
+						</span>
+						<span className="sr-only">Sort by Client {label}</span>
+						<ArrowSmDownIcon className="h-4 w-4 text-gray-700" />
+					</button>
+				)
+			else
+				return (
+					<button
+						onClick={() => updateSort(column, 'asc')}
+						className="flex items-center space-x-1"
+					>
+						<span className="text-xs font-medium uppercase tracking-wider text-gray-500">
+							{label}
+						</span>
+						<span className="sr-only">Sort by Client {label}</span>
+						<ArrowSmUpIcon className="h-4 w-4 text-gray-700" />
+					</button>
+				)
+		} else
+			return (
+				<button
+					onClick={() => updateSort(column, 'asc')}
+					className="flex items-center space-x-2"
+				>
+					<span className="text-xs font-medium uppercase tracking-wider text-gray-500">
+						{label}
+					</span>
+					<span className="sr-only">Sort by Client {label}</span>
+					<SwitchVerticalIcon className="h-4 w-4 text-gray-700" />
+				</button>
+			)
+	}
 	return (
 		<div className="flex flex-col">
 			<div className="inline-block min-w-full py-2 align-middle">
 				<div className="overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
-					<table className="min-w-full divide-y divide-gray-200">
+					<table className="min-w-full table-fixed divide-y divide-gray-200">
 						<thead className="bg-gray-50">
 							<tr>
 								<th
 									scope="col"
-									className="w-full px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
+									className="flex w-full items-center px-6 py-3 text-left"
 								>
-									Name
+									{sortControls('Name', 'name', order, direction, updateSort)}
 								</th>
 								<th
 									scope="col"
 									className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
 								>
-									Status
+									{sortControls(
+										'Status',
+										'status',
+										order,
+										direction,
+										updateSort
+									)}
 								</th>
 								<th
 									scope="col"
 									className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500"
 								>
-									Created
+									{sortControls(
+										'Created',
+										'createdAt',
+										order,
+										direction,
+										updateSort
+									)}
 								</th>
 								<th scope="col" className="relative px-6 py-3">
+									<div className="flex items-center justify-end">
+										<label
+											htmlFor="results"
+											className="mr-2 text-xs text-gray-500"
+										>
+											Results
+										</label>
+										<select
+											onChange={(e) => updateSort(e.target.id, e.target.value)}
+											name="results"
+											id="results"
+											className="rounded border-gray-300 py-0.5 pl-2 pr-6 text-xs"
+										>
+											<option>10</option>
+											<option>25</option>
+											<option>50</option>
+										</select>
+									</div>
 									<span className="sr-only">Edit</span>
 								</th>
 							</tr>
