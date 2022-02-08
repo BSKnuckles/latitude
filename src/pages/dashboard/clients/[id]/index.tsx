@@ -128,11 +128,7 @@ export default function Client({ client }) {
 
 	return (
 		<Authenticated>
-			<PageHeader
-				title={client.name}
-				subtitle={`Since ${dayjs(client.createdAt).fromNow()}`}
-				controls={controls}
-			/>
+			<PageHeader title={client.name} controls={controls} />
 			<div className="mx-auto grid max-w-3xl grid-cols-1 gap-6 lg:max-w-7xl lg:grid-flow-col-dense lg:grid-cols-3">
 				<div className="space-y-6 lg:col-span-2 lg:col-start-1">
 					{/* Description list*/}
