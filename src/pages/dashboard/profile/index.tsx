@@ -112,7 +112,7 @@ export default function Profile({ session, user }) {
 										Name
 									</label>
 									<div className="mt-1 sm:col-span-2 sm:mt-0">
-										<div className="flex max-w-lg rounded-md shadow-sm">
+										<div className="flex rounded-md shadow-sm">
 											<input
 												type="text"
 												name="name"
@@ -125,7 +125,7 @@ export default function Profile({ session, user }) {
 														name: e.target.value,
 													})
 												}
-												className="block w-full max-w-lg rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+												className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 											/>
 										</div>
 									</div>
@@ -139,7 +139,7 @@ export default function Profile({ session, user }) {
 										Email Address
 									</label>
 									<div className="mt-1 sm:col-span-2 sm:mt-0">
-										<div className="flex max-w-lg rounded-md shadow-sm">
+										<div className="flex rounded-md shadow-sm">
 											<input
 												type="email"
 												name="email"
@@ -152,7 +152,7 @@ export default function Profile({ session, user }) {
 														email: e.target.value,
 													})
 												}
-												className="block w-full max-w-lg rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+												className="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
 											/>
 										</div>
 										<p className="mt-0.5 ml-0.5 text-xs text-gray-400">
