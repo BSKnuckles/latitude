@@ -108,11 +108,14 @@ export default function Authenticated({ children }) {
 								</div>
 							</Transition.Child>
 							<div className="flex flex-shrink-0 items-center px-4">
-								<Image
-									className="h-8 w-auto"
-									src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-									alt="Workflow"
-								/>
+								<div className="flex h-8 w-auto">
+									<Image
+										src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
+										alt="Workflow"
+										width={600}
+										height={200}
+									/>
+								</div>
 							</div>
 							<div className="mt-5 h-0 flex-1 overflow-y-auto">
 								<nav className="space-y-1 px-2">
@@ -154,11 +157,14 @@ export default function Authenticated({ children }) {
 				{/* Sidebar component, swap this element with another sidebar if you like */}
 				<div className="flex flex-grow flex-col overflow-y-auto border-r border-gray-200 bg-white pt-5">
 					<div className="flex flex-shrink-0 items-center px-4">
-						<Image
-							className="h-8 w-auto"
-							src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
-							alt="Workflow"
-						/>
+						<div className="flex h-8 w-auto">
+							<Image
+								src="https://tailwindui.com/img/logos/workflow-logo-indigo-600-mark-gray-800-text.svg"
+								alt="Workflow"
+								width={600}
+								height={200}
+							/>
+						</div>
 					</div>
 					<div className="mt-5 flex flex-grow flex-col">
 						<nav className="flex-1 space-y-1 px-2 pb-4">
@@ -233,11 +239,15 @@ export default function Authenticated({ children }) {
 								<div>
 									<Menu.Button className="flex max-w-xs items-center rounded-full bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
 										<span className="sr-only">Open user menu</span>
-										<Image
-											className="h-8 w-8 rounded-full"
-											src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-											alt=""
-										/>
+										<div className="flex h-8 w-8">
+											<Image
+												className="rounded-full"
+												src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+												alt=""
+												height={120}
+												width={120}
+											/>
+										</div>
 									</Menu.Button>
 								</div>
 								<Transition

@@ -83,11 +83,14 @@ export default function Login({ csrfToken }) {
 	return (
 		<div className="flex min-h-full flex-col justify-center bg-gray-50 py-12 sm:px-6 lg:px-8">
 			<div className="sm:mx-auto sm:w-full sm:max-w-md">
-				<Image
-					className="mx-auto h-12 w-auto"
-					src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-					alt="Workflow"
-				/>
+				<div className="mx-auto flex h-12 w-auto">
+					<Image
+						src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+						alt="Workflow"
+						height={500}
+						width={500}
+					/>
+				</div>
 				<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
 					Sign in to your account
 				</h2>

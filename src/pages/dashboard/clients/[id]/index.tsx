@@ -253,11 +253,15 @@ export default function Client({ client }) {
 											<li key={comment.id}>
 												<div className="flex space-x-3">
 													<div className="flex-shrink-0">
-														<Image
-															className="h-10 w-10 rounded-full"
-															src={`https://images.unsplash.com/photo-${comment.imageId}?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`}
-															alt=""
-														/>
+														<div className="flex h-10 w-10">
+															<Image
+																className="rounded-full"
+																src={`https://images.unsplash.com/photo-${comment.imageId}?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`}
+																alt=""
+																height={120}
+																width={120}
+															/>
+														</div>
 													</div>
 													<div>
 														<div className="text-sm">
@@ -292,11 +296,15 @@ export default function Client({ client }) {
 							<div className="bg-gray-50 px-4 py-6 sm:px-6">
 								<div className="flex space-x-3">
 									<div className="flex-shrink-0">
-										<Image
-											className="h-10 w-10 rounded-full"
-											src={user.imageUrl}
-											alt=""
-										/>
+										<div className="flex h-10 w-10">
+											<Image
+												className="rounded-full"
+												src={user.imageUrl}
+												alt=""
+												width={120}
+												height={120}
+											/>
+										</div>
 									</div>
 									<div className="min-w-0 flex-1">
 										<form action="#">

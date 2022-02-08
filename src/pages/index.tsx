@@ -95,11 +95,14 @@ export default function Home() {
 									<div className="flex w-full items-center justify-between md:w-auto">
 										<a href="#">
 											<span className="sr-only">Workflow</span>
-											<Image
-												className="h-8 w-auto sm:h-10"
-												src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-												alt=""
-											/>
+											<div className="flex h-8 w-auto sm:h-10">
+												<Image
+													src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
+													alt=""
+													width={500}
+													height={500}
+												/>
+											</div>
 										</a>
 										<div className="-mr-2 flex items-center md:hidden">
 											<Popover.Button className="inline-flex items-center justify-center rounded-md bg-gray-50 p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
@@ -154,11 +157,12 @@ export default function Home() {
 							>
 								<div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
 									<div className="flex items-center justify-between px-5 pt-4">
-										<div>
+										<div className="flex h-8 w-auto">
 											<Image
-												className="h-8 w-auto"
 												src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
 												alt=""
+												width={500}
+												height={500}
 											/>
 										</div>
 										<div className="-mr-2">
@@ -214,6 +218,8 @@ export default function Home() {
 							className="relative rounded-lg shadow-lg"
 							src="https://tailwindui.com/img/component-images/top-nav-with-multi-column-layout-screenshot.jpg"
 							alt="App screenshot"
+							width={1200}
+							height={850}
 						/>
 					</div>
 				</div>
@@ -225,39 +231,54 @@ export default function Home() {
 					</h2>
 					<div className="mt-8 grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
 						<div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-							<Image
-								className="h-12"
-								src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg"
-								alt="Tuple"
-							/>
+							<div className="flex h-12">
+								<Image
+									src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg"
+									alt="Tuple"
+									width={240}
+									height={240}
+								/>
+							</div>
 						</div>
 						<div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-							<Image
-								className="h-12"
-								src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg"
-								alt="Mirage"
-							/>
+							<div className="flex h-12">
+								<Image
+									src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg"
+									alt="Mirage"
+									width={240}
+									height={240}
+								/>
+							</div>
 						</div>
 						<div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-							<Image
-								className="h-12"
-								src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg"
-								alt="StaticKit"
-							/>
+							<div className="flex h-12">
+								<Image
+									src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg"
+									alt="StaticKit"
+									width={240}
+									height={240}
+								/>
+							</div>
 						</div>
 						<div className="col-span-1 flex justify-center md:col-span-3 lg:col-span-1">
-							<Image
-								className="h-12"
-								src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
-								alt="Transistor"
-							/>
+							<div className="flex h-12">
+								<Image
+									src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
+									alt="Transistor"
+									width={240}
+									height={240}
+								/>
+							</div>
 						</div>
 						<div className="col-span-2 flex justify-center md:col-span-3 lg:col-span-1">
-							<Image
-								className="h-12"
-								src="https://tailwindui.com/img/logos/workcation-logo-gray-400.svg"
-								alt="Workcation"
-							/>
+							<div className="flex h-12">
+								<Image
+									src="https://tailwindui.com/img/logos/workcation-logo-gray-400.svg"
+									alt="Workcation"
+									width={240}
+									height={240}
+								/>
+							</div>
 						</div>
 					</div>
 				</div>
