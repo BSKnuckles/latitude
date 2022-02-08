@@ -10,6 +10,7 @@ export default function NewClient() {
 	const [error, setError] = useState('')
 	const [formData, setFormData] = useState({
 		name: '',
+		status: 'New',
 	})
 
 	const handleSubmit = async (event) => {
