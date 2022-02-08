@@ -21,7 +21,7 @@ const useFetch = (url, method, body = null) => {
         });
     };
     fetchData();
-  }, [url]);
+  }, [url, method, body]);
 
   return { error, isLoaded, data };
 };
