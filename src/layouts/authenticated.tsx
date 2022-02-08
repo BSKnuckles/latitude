@@ -16,7 +16,7 @@ import { SearchIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 import { classNames } from '@/lib/utils'
 
-export default function Layout({ children }) {
+export default function Authenticated({ children }) {
 	const router = useRouter()
 	const [sidebarOpen, setSidebarOpen] = useState(false)
 
