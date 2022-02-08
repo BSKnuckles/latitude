@@ -1,12 +1,9 @@
 import Link from 'next/link'
 
-export default function PageHeader({ title, subtitle = null, controls = [] }) {
+export default function PageHeader({ title, controls = [] }) {
 	return (
 		<div className="mx-auto mb-6 flex max-w-7xl items-center justify-between py-2">
-			<div>
-				<h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
-				{subtitle && <p className="text-sm text-gray-600">{subtitle}</p>}
-			</div>
+			<h1 className="text-2xl font-semibold text-gray-900">{title}</h1>
 			{controls.length > 0 && (
 				<div className="ml-auto space-x-4">
 					{controls.map((control) => (
