@@ -19,7 +19,7 @@ const getById = async (req, res, session, id) => {
 
 const getAll = async (req, res, session) => {
 	try {
-		const { page = 1, count = 5, orderBy = 'name', direction = 'asc' } = req.query
+		const { page = 1, count = 10, orderBy = 'name', direction = 'asc' } = req.query
 		const records = await prisma.client.count({where: {
 				userId: session.user.id,
 			}})
