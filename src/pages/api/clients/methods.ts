@@ -45,9 +45,10 @@ const getAll = async (req, res, session) => {
 
 const create = async (req, res, session) => {
 	try {
-		const { name } = req.body
+		const { name, status } = req.body
 		if (!name) throw new Error('The client name is required')
-		const client = await prisma.client.create({ data: { name: String(name), userId: String(session.user.id) }})
+		if (!status) throw new Error('The client status field is required')
+		const client = await prisma.client.create({ data: { name: String(name), userId: String(session.user.id), status: status }})
 		if (client) res.status(201).json({ message: `Successfully created client: ${client.name}`, data: client })
 		else throw new Error('CreateClientError')
 		res.status(501).send()
