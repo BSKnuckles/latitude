@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { Popover, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const navigation = [
 	{ name: 'Product', href: '#' },
@@ -94,7 +95,7 @@ export default function Home() {
 									<div className="flex w-full items-center justify-between md:w-auto">
 										<a href="#">
 											<span className="sr-only">Workflow</span>
-											<img
+											<Image
 												className="h-8 w-auto sm:h-10"
 												src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
 												alt=""
@@ -154,7 +155,7 @@ export default function Home() {
 								<div className="overflow-hidden rounded-lg bg-white shadow-md ring-1 ring-black ring-opacity-5">
 									<div className="flex items-center justify-between px-5 pt-4">
 										<div>
-											<img
+											<Image
 												className="h-8 w-auto"
 												src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
 												alt=""
@@ -209,7 +210,7 @@ export default function Home() {
 						<div className="w-full flex-1 bg-gray-800" />
 					</div>
 					<div className="mx-auto max-w-7xl px-4 sm:px-6">
-						<img
+						<Image
 							className="relative rounded-lg shadow-lg"
 							src="https://tailwindui.com/img/component-images/top-nav-with-multi-column-layout-screenshot.jpg"
 							alt="App screenshot"
@@ -224,35 +225,35 @@ export default function Home() {
 					</h2>
 					<div className="mt-8 grid grid-cols-2 gap-8 md:grid-cols-6 lg:grid-cols-5">
 						<div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-							<img
+							<Image
 								className="h-12"
 								src="https://tailwindui.com/img/logos/tuple-logo-gray-400.svg"
 								alt="Tuple"
 							/>
 						</div>
 						<div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-							<img
+							<Image
 								className="h-12"
 								src="https://tailwindui.com/img/logos/mirage-logo-gray-400.svg"
 								alt="Mirage"
 							/>
 						</div>
 						<div className="col-span-1 flex justify-center md:col-span-2 lg:col-span-1">
-							<img
+							<Image
 								className="h-12"
 								src="https://tailwindui.com/img/logos/statickit-logo-gray-400.svg"
 								alt="StaticKit"
 							/>
 						</div>
 						<div className="col-span-1 flex justify-center md:col-span-3 lg:col-span-1">
-							<img
+							<Image
 								className="h-12"
 								src="https://tailwindui.com/img/logos/transistor-logo-gray-400.svg"
 								alt="Transistor"
 							/>
 						</div>
 						<div className="col-span-2 flex justify-center md:col-span-3 lg:col-span-1">
-							<img
+							<Image
 								className="h-12"
 								src="https://tailwindui.com/img/logos/workcation-logo-gray-400.svg"
 								alt="Workcation"

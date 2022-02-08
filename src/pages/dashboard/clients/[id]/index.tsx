@@ -11,6 +11,7 @@ dayjs.extend(relativeTime)
 import { classNames } from '@/lib/utils'
 import Authenticated from '@/layouts/authenticated'
 import PageHeader from '@/layouts/page-header'
+import Image from 'next/image'
 
 export async function getServerSideProps(context) {
 	const { id } = context.query
@@ -252,7 +253,7 @@ export default function Client({ client }) {
 											<li key={comment.id}>
 												<div className="flex space-x-3">
 													<div className="flex-shrink-0">
-														<img
+														<Image
 															className="h-10 w-10 rounded-full"
 															src={`https://images.unsplash.com/photo-${comment.imageId}?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80`}
 															alt=""
@@ -291,7 +292,7 @@ export default function Client({ client }) {
 							<div className="bg-gray-50 px-4 py-6 sm:px-6">
 								<div className="flex space-x-3">
 									<div className="flex-shrink-0">
-										<img
+										<Image
 											className="h-10 w-10 rounded-full"
 											src={user.imageUrl}
 											alt=""

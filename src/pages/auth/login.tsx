@@ -2,6 +2,7 @@ import { getCsrfToken, signIn, useSession, getSession } from 'next-auth/react'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import ErrorBanner from '@/components/notifications/error-banner'
+import Image from 'next/image'
 
 export async function getServerSideProps(context) {
 	return {
@@ -82,7 +83,7 @@ export default function Login({ csrfToken }) {
 	return (
 		<div className="flex min-h-full flex-col justify-center bg-gray-50 py-12 sm:px-6 lg:px-8">
 			<div className="sm:mx-auto sm:w-full sm:max-w-md">
-				<img
+				<Image
 					className="mx-auto h-12 w-auto"
 					src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
 					alt="Workflow"
@@ -205,103 +206,6 @@ export default function Login({ csrfToken }) {
 					</div>
 				</div>
 			</div>
-			{/* <div className="flex min-h-full">
-					<div className="flex flex-1 flex-col justify-center py-12 px-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
-						<div className="mx-auto w-full max-w-sm lg:w-96">
-							<div className="mb-2">
-								<Link href="/">
-									<a>
-										<img
-											className="mx-auto h-12 w-auto"
-											src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-											alt="Workflow"
-										/>
-									</a>
-								</Link>
-								<h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-									Sign in to your account
-								</h2>
-							</div>
-	
-							{error && (
-								<div className="mt-6">
-									<ErrorBanner title="Authentication Failed" message={error} />
-								</div>
-							)}
-	
-							{confirmation && (
-								<div className="mt-6">
-									<SuccessBanner title="Success" message={confirmation} />
-								</div>
-							)}
-	
-							<div className="mt-6">
-								<div>
-									<div>
-										<form
-											onSubmit={handleMagicLink}
-											id="magic-link-form"
-											className="space-y-6"
-										>
-											<div>
-												<label
-													htmlFor="email-link"
-													className="block text-sm font-medium text-gray-700"
-												>
-													Email Address
-												</label>
-												<div className="mt-1">
-													<input
-														id="email-link"
-														name="email-link"
-														type="email"
-														autoComplete="email"
-														required
-														className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
-													/>
-												</div>
-											</div>
-	
-											<div>
-												<button
-													type="submit"
-													className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-												>
-													Send Passwordless Login Link
-												</button>
-											</div>
-										</form>
-									</div>
-	
-									<div className="relative mt-6">
-										<div
-											className="absolute inset-0 flex items-center"
-											aria-hidden="true"
-										>
-											<div className="w-full border-t border-gray-300" />
-										</div>
-										<div className="relative flex justify-center text-sm">
-											<span className="bg-white px-2 text-gray-500">
-												Or continue with
-											</span>
-										</div>
-									</div>
-								</div>
-	
-								<div className="mt-6">
-									
-								</div>
-							</div>
-						</div>
-					</div>
-					<div className="relative hidden w-0 flex-1 lg:block">
-						<img
-							className="absolute inset-0 h-full w-full object-cover"
-							src="https://images.unsplash.com/photo-1505904267569-f02eaeb45a4c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1908&q=80"
-							alt=""
-						/>
-					</div>
-				</div> */}
 		</div>
 	)
 }
