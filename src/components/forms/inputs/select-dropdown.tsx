@@ -20,7 +20,7 @@ export default function SelectDropdown({
 				onChange={handleChange}
 			>
 				{options.map((option) => (
-					<option>{option}</option>
+					<option key={option}>{option}</option>
 				))}
 			</select>
 		</div>
